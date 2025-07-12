@@ -9,7 +9,7 @@ type Props = {
 const CodeDisplay = ({ code }: Props) => {
   return (
     <Card>
-      <CardHeader className="text-sm font-semibold">Generated Java Code</CardHeader>
+      <CardHeader className="text-xl font-semibold">Generated Java Code</CardHeader>
       <CardContent className="px-4 py-2">
   <SyntaxHighlighter
     language="java"

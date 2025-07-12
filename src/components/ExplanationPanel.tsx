@@ -1,17 +1,22 @@
-import { Card, CardContent } from '../components/ui/card';
+import { Card, CardContent, CardHeader } from "../components/ui/card";
+import ReactMarkdown from "react-markdown";
 
 interface Props {
-  explanation: string;
+  explanation: string | string[];
 }
 
 const ExplanationPanel = ({ explanation }: Props) => {
+  const markdown = Array.isArray(explanation)
+    ? explanation.join("\n\n")
+    : explanation;
+
   return (
-    <Card>
-      <CardContent className="text-sm p-4 max-h-[180px] overflow-auto text-muted-foreground">
-        <h3 className="text-md font-semibold mb-2">Explanation</h3>
-        <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
-          {explanation}
-        </p>
+    <Card className="h-full overflow-auto">
+      <CardHeader>
+        <h2 className="text-xl font-semibold">Explanation</h2>
+      </CardHeader>
+      <CardContent className="prose prose-sm max-w-none px-6 pb-6 pt-0 overflow-y-auto">
+        <ReactMarkdown>{markdown}</ReactMarkdown>
       </CardContent>
     </Card>
   );

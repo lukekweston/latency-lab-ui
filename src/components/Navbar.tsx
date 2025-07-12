@@ -4,11 +4,14 @@ const Navbar = () => {
   const location = useLocation();
 
   const navItems = [
-    { path: '/', label: 'Low Latency GC' },
-    { path: '/memory', label: 'Memory Allocation' },
-    { path: '/threading', label: 'Threading' },
-    { path: '/object-pooling', label: 'Object Pooling' },
-    { path: '/custom', label: 'Custom Benchmarks' },
+  { path: '/', label: 'Low-Latency GC' },
+  { path: '/locking', label: 'Locking vs Lock-Free' },
+  { path: '/memory-layout', label: 'False Sharing' },
+  { path: '/logging', label: 'GC-Free Logging' },
+  { path: '/offheap', label: 'Off-Heap Queues' },
+  { path: '/startup', label: 'Startup Optimization' },
+  { path: '/network', label: 'Network Latency' },
+  { path: '/gc-visualizer', label: 'GC Visualizer' },
   ];
 
   return (

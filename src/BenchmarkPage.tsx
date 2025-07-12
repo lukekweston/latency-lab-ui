@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { BenchmarkConfig, BenchmarkRun } from './types';
-import { runBenchmark } from './api';
+import { runBenchmark, generateCodeSnippet, generateExplanation } from './api';
 import ConfigPanel from './components/ConfigPanel';
 import ChartGroup from './components/ChartGroup';
 import CodeDisplay from './components/CodeDisplay';
@@ -8,21 +8,50 @@ import ExplanationPanel from './components/ExplanationPanel';
 
 const BenchmarkPage = () => {
   const [config, setConfig] = useState<BenchmarkConfig>({
+    gc: 'G1GC',
     useObjectPool: false,
     usePrimitives: false,
+    disableAllocations: false,
+    preTouchMemory: false,
+    memoryAccess: 'onheap',
     threading: 'single',
-    gc: 'G1GC',
+    pinThreads: false,
+    enableBatching: false,
+    batchSize: 100,
+    escapeAnalysisDisabled: false,
+    simulateLoad: false,
   });
 
   const [results, setResults] = useState<BenchmarkRun | null>(null);
   const [history, setHistory] = useState<BenchmarkRun[]>([]);
+
+  // 👇 These update when config changes
+  const [code, setCode] = useState('// Code preview will appear here...');
+  const [explanation, setExplanation] = useState(
+    'Explanation for each setting will appear here.'
+  );
+
+  useEffect(() => {
+    const fetchUpdates = async () => {
+      try {
+        const codeSnippet = await generateCodeSnippet(config);
+        const explanationText = await generateExplanation(config);
+        setCode(codeSnippet);
+        setExplanation(explanationText);
+      } catch (err) {
+        console.error('Failed to update preview:', err);
+      }
+    };
+
+    fetchUpdates();
+  }, [config]);
 
   const handleRun = async () => {
     try {
       const data = await runBenchmark(config);
       const run: BenchmarkRun = { ...config, ...data };
       setResults(run);
-      setHistory((prev) => [...prev, run]);
+      setHistory(prev => [...prev, run]);
     } catch (err) {
       console.error(err);
       alert('Failed to run benchmark');
@@ -40,16 +69,10 @@ const BenchmarkPage = () => {
     </div>
     <div className="col-span-2 flex flex-col space-y-2">
       <CodeDisplay
-        code={
-          results?.code ??
-          '// Run a benchmark to see generated low-latency code here.'
-        }
+        code={code}
       />
       <ExplanationPanel
-        explanation={
-          results?.explanation ??
-          'This panel will explain how selected options affect performance, GC behavior, and latency once you run a benchmark.'
-        }
+        explanation={explanation}
       />
     </div>
   </div>
@@ -60,8 +83,10 @@ const BenchmarkPage = () => {
     <ChartGroup runs={history} chartType="throughput" />
   </div>
 </div>
-
   );
 };
 
 export default BenchmarkPage;
+
+
+ 
