@@ -1,19 +1,19 @@
+import { Card, CardContent } from '../components/ui/card';
+
 interface Props {
-  explanation: string[];
+  explanation: string;
 }
 
 const ExplanationPanel = ({ explanation }: Props) => {
   return (
-    <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc' }}>
-      <h2>Optimization Explanation</h2>
-      <ul style={{ paddingLeft: '1.2rem' }}>
-        {explanation.map((item, idx) => (
-          <li key={idx} style={{ marginBottom: '0.5rem' }}>
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Card>
+      <CardContent className="text-sm p-4 max-h-[180px] overflow-auto text-muted-foreground">
+        <h3 className="text-md font-semibold mb-2">Explanation</h3>
+        <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">
+          {explanation}
+        </p>
+      </CardContent>
+    </Card>
   );
 };
 

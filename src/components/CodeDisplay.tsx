@@ -1,24 +1,32 @@
-interface Props {
+import { Card, CardContent, CardHeader } from '../components/ui/card';
+import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
+import { prism  } from 'react-syntax-highlighter/dist/esm/styles/prism';
+
+type Props = {
   code: string;
-}
+};
 
 const CodeDisplay = ({ code }: Props) => {
   return (
-    <div style={{ marginTop: '2rem', padding: '1rem', border: '1px solid #ccc' }}>
-      <h2>Java Code</h2>
-      <pre
-        style={{
-          backgroundColor: '#f5f5f5',
-          padding: '1rem',
-          overflowX: 'auto',
-          whiteSpace: 'pre-wrap',
-          fontFamily: 'monospace',
-          fontSize: '0.9rem',
-        }}
-      >
-        {code}
-      </pre>
-    </div>
+    <Card>
+      <CardHeader className="text-sm font-semibold">Generated Java Code</CardHeader>
+      <CardContent className="px-4 py-2">
+  <SyntaxHighlighter
+    language="java"
+    style={prism}
+    customStyle={{
+      background: 'transparent',
+      fontSize: '0.85rem',
+      lineHeight: '1.5',
+      fontFamily: 'monospace',
+      padding: 0,
+      margin: 0,
+    }}
+  >
+    {code}
+  </SyntaxHighlighter>
+</CardContent>
+    </Card>
   );
 };
 

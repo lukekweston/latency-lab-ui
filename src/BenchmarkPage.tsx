@@ -22,7 +22,7 @@ const BenchmarkPage = () => {
       const data = await runBenchmark(config);
       const run: BenchmarkRun = { ...config, ...data };
       setResults(run);
-      setHistory(prev => [...prev, run]);
+      setHistory((prev) => [...prev, run]);
     } catch (err) {
       console.error(err);
       alert('Failed to run benchmark');
@@ -30,16 +30,37 @@ const BenchmarkPage = () => {
   };
 
   return (
-    <div style={{ padding: '1rem' }}>
+    <div className="max-w-screen-xl mx-auto px-6 py-4 font-sans text-foreground space-y-4">
+  <h1 className="text-2xl font-bold">Low-Latency Optimization</h1>
+
+  {/* Top Row: Config + Code/Explanation */}
+  <div className="grid grid-cols-3 gap-4">
+    <div className="col-span-1">
       <ConfigPanel config={config} setConfig={setConfig} onRun={handleRun} />
-      {results && (
-        <>
-          <ChartGroup runs={history} />
-          <CodeDisplay code={results.code} />
-          <ExplanationPanel explanation={results.explanation} />
-        </>
-      )}
     </div>
+    <div className="col-span-2 flex flex-col space-y-2">
+      <CodeDisplay
+        code={
+          results?.code ??
+          '// Run a benchmark to see generated low-latency code here.'
+        }
+      />
+      <ExplanationPanel
+        explanation={
+          results?.explanation ??
+          'This panel will explain how selected options affect performance, GC behavior, and latency once you run a benchmark.'
+        }
+      />
+    </div>
+  </div>
+
+  {/* Bottom Row: Charts side-by-side */}
+  <div className="grid grid-cols-2 gap-4">
+    <ChartGroup runs={history} chartType="latency" />
+    <ChartGroup runs={history} chartType="throughput" />
+  </div>
+</div>
+
   );
 };
 
