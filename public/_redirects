@@ -1,0 +1,2 @@
+/api/*  https://latency-lab-backend-633887535514.europe-west2.run.app/api/:splat  200
+/*      /index.html  200

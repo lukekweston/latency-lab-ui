@@ -22,7 +22,7 @@ const BenchmarkPage = () => {
     simulateLoad: false,
   });
 
-  const [results, setResults] = useState<BenchmarkRun | null>(null);
+  const [, setResults] = useState<BenchmarkRun | null>(null);
   const [history, setHistory] = useState<BenchmarkRun[]>([]);
 
   // 👇 These update when config changes
@@ -37,7 +37,7 @@ const BenchmarkPage = () => {
         const codeSnippet = await generateCodeSnippet(config);
         const explanationText = await generateExplanation(config);
         setCode(codeSnippet);
-        setExplanation(explanationText);
+        setExplanation(Array.isArray(explanationText) ? explanationText.join('\n') : explanationText);
       } catch (err) {
         console.error('Failed to update preview:', err);
       }

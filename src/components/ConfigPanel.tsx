@@ -55,7 +55,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Use object pool</Label>
             <Checkbox
               checked={config.useObjectPool}
-              onCheckedChange={(val) => update('useObjectPool', val)}
+              onCheckedChange={(val) => update('useObjectPool', Boolean(val))}
             />
           </div>
 
@@ -63,7 +63,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Use primitives</Label>
             <Checkbox
               checked={config.usePrimitives}
-              onCheckedChange={(val) => update('usePrimitives', val)}
+              onCheckedChange={(val) => update('usePrimitives', Boolean(val))}
             />
           </div>
 
@@ -71,7 +71,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Disable allocations</Label>
             <Checkbox
               checked={config.disableAllocations}
-              onCheckedChange={(val) => update('disableAllocations', val)}
+              onCheckedChange={(val) => update('disableAllocations', Boolean(val))}
             />
           </div>
 
@@ -79,7 +79,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Pre-touch memory</Label>
             <Checkbox
               checked={config.preTouchMemory}
-              onCheckedChange={(val) => update('preTouchMemory', val)}
+              onCheckedChange={(val) => update('preTouchMemory', Boolean(val))}
             />
           </div>
 
@@ -121,7 +121,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Pin threads to cores</Label>
             <Checkbox
               checked={config.pinThreads}
-              onCheckedChange={(val) => update('pinThreads', val)}
+              onCheckedChange={(val) => update('pinThreads', Boolean(val))}
             />
           </div>
         </div>
@@ -134,7 +134,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Enable batching</Label>
             <Checkbox
               checked={config.enableBatching}
-              onCheckedChange={(val) => update('enableBatching', val)}
+              onCheckedChange={(val) => update('enableBatching', Boolean(val))}
             />
           </div>
 
@@ -161,7 +161,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Disable escape analysis (simulated)</Label>
             <Checkbox
               checked={config.escapeAnalysisDisabled}
-              onCheckedChange={(val) => update('escapeAnalysisDisabled', val)}
+              onCheckedChange={(val) => update('escapeAnalysisDisabled', Boolean(val))}
             />
           </div>
 
@@ -169,7 +169,7 @@ const ConfigPanel = ({ config, setConfig, onRun }: Props) => {
             <Label>Simulate system load</Label>
             <Checkbox
               checked={config.simulateLoad}
-              onCheckedChange={(val) => update('simulateLoad', val)}
+              onCheckedChange={(val) => update('simulateLoad', Boolean(val))}
             />
           </div>
         </div>

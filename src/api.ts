@@ -1,6 +1,6 @@
 import type { BenchmarkConfig, BenchmarkResult } from './types';
 
-const API_BASE = 'http://localhost:8080/api'; // adjust if hosted elsewhere
+const API_BASE = import.meta.env.VITE_API_BASE || '/api';
 
 export async function runBenchmark(config: BenchmarkConfig): Promise<BenchmarkResult> {
   const res = await fetch(`${API_BASE}/run-benchmark`, {
