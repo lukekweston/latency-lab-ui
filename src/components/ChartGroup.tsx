@@ -33,8 +33,10 @@ const ChartGroup = ({ runs, chartType }: Props) => {
       domain={['dataMin', 'dataMax']}
     />
     <YAxis
-      tickFormatter={(v) => `${v}${unit}`}
-      tick={{ fontSize: 10 }}
+        scale="log"
+        domain={['auto', 'auto']}
+        tickFormatter={(v) => `${v}${unit}`}
+        tick={{ fontSize: 10 }}
     />
     <Tooltip />
 
